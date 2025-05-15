@@ -1,0 +1,298 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.kermis {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  height: 78vh;
+  margin: 0;
+  align-items: center;
+  background-image: url("img/hoiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+
+}
+
+.halloween {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  background-image: url("img/pngtree-halloween-image_2968568.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+
+}
+
+.galaxy {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  background-image: url("img/galaxy.avif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+
+}
+
+.turks {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  background-image: url("img/turkish-flag-1774834_1280.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+}
+
+.main {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  display: flex;
+  height: 78vh;
+  margin: 0;
+  align-items: center;
+  background-image: url("img/main.avif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+
+}
+
+.main-hoger-lager {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(137, 19, 177);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 8px black;
+}
+
+.kermis-hoger-lager {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(19, 43, 177);
+  border-radius: 15px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 8px black;
+}
+
+.halloween-hoger-lager {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(181, 110, 17);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 8px black;
+}
+
+.galaxy-hoger-lager {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(19, 43, 177);
+  border-radius: 15px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 8px black;
+}
+
+.turks-hoger-lager {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgb(255, 0, 0);
+  border-radius: 15px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 8px black;
+}
+
+.guessButton-kermis {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #612a99;
+  color: rgb(255, 252, 250);
+  border: solid black;
+  border-radius: 5px;
+}
+
+.guessButton-halloween {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #ffc95d;
+  color: rgb(0, 0, 0);
+  border: solid black;
+  border-radius: 5px;
+}
+
+.guessButton-galaxy {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #5322a8;
+  color: rgb(0, 0, 0);
+  border: solid black;
+  border-radius: 5px;
+}
+
+.guessButton-turks {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: solid black;
+  border-radius: 5px;
+}
+
+input[type="number"] {
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.home-kermis {
+  font-size: 30px;
+  top: 10px;
+  left: 10px;
+  position: fixed;
+  border-radius: 5px;
+  background-color: rgb(78, 26, 161);
+  color: rgb(95, 29, 161);
+  border: solid black;
+}
+
+.home-kermis:hover{
+  background-color: rgba(78, 26, 161, 0.8);
+}
+
+.home-halloween {
+  font-size: 30px;
+  top: 10px;
+  left: 10px;
+  position: fixed;
+  border-radius: 5px;
+  background-color: #bc6b13;
+  color: rgb(255, 255, 255);
+  border: solid black;
+}
+
+.home-galaxy {
+  font-size: 30px;
+  top: 10px;
+  left: 10px;
+  position: fixed;
+  border-radius: 5px;
+  background-color: #48109d;
+  color: rgb(255, 255, 255);
+  border: solid black;
+}
+
+.home-turks {
+  font-size: 30px;
+  top: 10px;
+  left: 10px;
+  position: fixed;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: rgb(255, 255, 255);
+  border: solid black;
+}
+
+.text-kermis-home {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.text-halloween-home {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.text-galaxy-home {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+.text-turks-home {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+
+.resetButton-kermis{
+  font-size: 15px;
+  background-color: #5322a8;
+  color: white;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.resetButton-halloween{
+  font-size: 15px;
+  background-color: #c3a82f;
+  color: rgb(0, 0, 0);
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.resetButton-galaxy{
+  font-size: 15px;
+  background-color: #226bb3;
+  color: rgb(0, 0, 0);
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.resetButton-turks{
+  font-size: 15px;
+  background-color: #ff0202;
+  color: white;
+  border: 3px solid black;
+  border-radius: 5px;
+}

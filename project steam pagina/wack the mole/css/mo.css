@@ -1,0 +1,285 @@
+* {
+  padding: 0;
+  margin: o;
+  box-sizing: border-box;
+}
+body {
+  background-image: url(../img/moloinbesthole.jpg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#timer {
+  position: absolute;
+  left: 200px;
+  top: 170px;
+  background-color: #4e6c0a;
+  padding: 3px;
+}
+#score {
+  position: absolute;
+  left: 850px;
+  top: 170px;
+  background-color: #4e6c0a;
+  padding: 3px;
+}
+.button-home,
+.button-tetris,
+.button-bke {
+  background-color: rgb(108, 83, 0);
+}
+.rules {
+  position: absolute;
+  left: 1123px;
+  top: 200px;
+  background-color: rgb(128, 83, 0);
+  width: 330px;
+  height: 350px;
+}
+.rule-all {
+  position: relative;
+  left: 18px;
+  width: 310px;
+}
+#startknop {
+  background-color: orange;
+  border-radius: 50px;
+  width: 150px;
+  position: absolute;
+  left: 620px;
+  top: 120px;
+}
+.molepnt {
+  position: absolute;
+  top: 66px;
+  left: 700px;
+}
+#stopknop {
+  background-color: orange;
+  border-radius: 50px;
+  width: 150px;
+  position: absolute;
+  left: 400px;
+  top: 120px;
+}
+.enge {
+  width: 50px;
+  position: absolute;
+  top: 130px;
+  left: 558px;
+}
+
+.holesall {
+  background-image: url(../img/molehole.png);
+  padding: 20px;
+  width: 1100px;
+  height: 488px;
+  position: absolute;
+  top: 200px;
+  left: 20px;
+
+  cursor: url(../img/kw-removebg-preview.png) 64 64, auto;
+}
+
+.hole {
+  height: 80px;
+  width: 80px;
+  border-radius: 100px;
+  background-color: rgb(555, 555, 555, 0.1);
+}
+.coloredmole1 {
+  position: absolute;
+  left: 610px;
+  top: 400px;
+  width: 130px;
+}
+.coloredmole2 {
+  position: absolute;
+  left: 900px;
+  top: 10px;
+  width: 200px;
+}
+.coloredmole3 {
+  position: absolute;
+  left: 250px;
+  top: 193px;
+  width: 70px;
+}
+.coloredmole4 {
+  position: absolute;
+  left: 900px;
+  top: -70px;
+  width: 800px;
+}
+.coloredmole5 {
+  position: absolute;
+  left: 730px;
+  top: 210px;
+  width: 70px;
+}
+.mole {
+  background-size: 100px;
+  background-image: url(../img/file.png);
+}
+
+.player-name {
+  position: absolute;
+  left: 850px;
+  top: 146px;
+  background-color: #5c7e10;
+  padding: 3px;
+}
+.Wack {
+  color: rgb(85, 255, 0);
+  position: absolute;
+  left: 480px;
+  top: 58px;
+}
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(6, 150px);
+  grid-template-rows: repeat(2, 180px);
+  grid-template-areas: 
+  "h7 h1 h8 h2 h9 h3"
+  "h4 h10 h5 h11 h6 h12";
+  gap: 20px;
+  justify-content: center;
+  z-index: 2;
+position: relative;
+left: 120px;
+top: 110px;
+}
+
+.layout-boxes {
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+#extra-hole1{
+  grid-area: h1;
+}
+#extra-hole2{
+  grid-area: h2;
+}
+#extra-hole3{
+  grid-area: h3;
+}
+#extra-hole4{
+  grid-area: h4;
+}
+#extra-hole5{
+  grid-area: h5;
+}
+#extra-hole6{
+  grid-area: h6;
+}
+#extra-empty-hole1{
+  grid-area: h7;
+}
+#extra-empty-hole2{
+  grid-area: h8;
+}
+#extra-empty-hole3{
+  grid-area: h9;
+}
+#extra-empty-hole4{
+  grid-area: h10;
+}
+#extra-empty-hole5{
+  grid-area: h11;
+}
+#extra-empty-hole6{
+  grid-area: h12;
+}
+#hole1 {
+  position: absolute;
+  left: 260px;
+  top: 83px;
+}
+#hole2 {
+  position: absolute;
+  left: 600px;
+  top: 83px;
+}
+#hole3 {
+  position: absolute;
+  left: 935px;
+  top: 83px;
+}
+#hole4 {
+  position: absolute;
+  left: 185px;
+  top: 210px;
+}
+#hole5 {
+  position: absolute;
+  left: 460px;
+  top: 210px;
+}
+#hole6 {
+  position: absolute;
+  left: 738px;
+  top: 210px;
+}
+#hole7 {
+  position: absolute;
+  left: 1013px;
+  top: 210px;
+}
+#hole8 {
+  position: absolute;
+  left: 250px;
+  top: 400px;
+}
+#hole9 {
+  position: absolute;
+  left: 603px;
+  top: 400px;
+}
+#hole10 {
+  position: absolute;
+  left: 950px;
+  top: 400px;
+}
+.button-container {
+  padding: 10px;
+  display: inline;
+  margin-top: 100px;
+}
+
+.button-container a {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #5c7e10;
+  color: white;
+  border-radius: 5px;
+}
+
+.button-container a:hover {
+  background-color: #4e6c0a;
+}
+
+header {
+  background-color: #171a21;
+  padding: 20px;
+  text-align: center;
+  height: 77px;
+  width: 100vw;
+}
+.food1 {
+  position: absolute;
+  left: 630px;
+  top: 375px;
+}
+.pregnant {
+  color: antiquewhite;
+  position: absolute;
+  left: 880px;
+  top: -5px;
+}
+.teletubbies {
+  position: absolute;
+  left: 310px;
+  top: 220px;
+}
