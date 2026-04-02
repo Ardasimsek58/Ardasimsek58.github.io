@@ -1,75 +1,316 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Over Mij | Arda Simsek</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Over Mij | Arda Simsek</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050810; --surface: #0c1120; --accent: #00f5d4; --accent2: #7c3aed;
+      --text: #e2e8f0; --muted: #64748b; --border: rgba(0,245,212,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; cursor: none; }
 
+    .cursor { position: fixed; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: screen; }
+    .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1.5px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); opacity: 0.5; }
+
+    #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.25; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(5,8,16,0.7); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Space Mono', monospace; font-size: 1.1rem; color: var(--accent); text-decoration: none; }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    main { position: relative; z-index: 1; padding-top: 6rem; }
+
+    .page-hero {
+      padding: 4rem 4rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .page-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .page-hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    section { padding: 3rem 4rem; max-width: 1100px; margin: 0 auto; }
+
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .bio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+      position: relative;
+      overflow: hidden;
+    }
+    .bio-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+    }
+    .bio-avatar {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .bio-card h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem; }
+    .bio-card .bio-subtitle { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+    .bio-detail { display: flex; gap: 0.8rem; margin-bottom: 0.8rem; font-size: 0.85rem; color: var(--muted); }
+    .bio-detail span:first-child { color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.7rem; min-width: 60px; }
+
+    .bio-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; }
+    .bio-text p strong { color: var(--text); }
+
+    /* SKILLS */
+    .section-label {
+      font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent);
+      letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--border); }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 2rem; }
+
+    .skill-bars { display: flex; flex-direction: column; gap: 1.2rem; }
+    .skill-bar-item {}
+    .skill-bar-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; }
+    .skill-bar-header span:last-child { font-family: 'Space Mono', monospace; color: var(--accent); font-size: 0.75rem; }
+    .skill-bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.05);
+      position: relative;
+      clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+    }
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0;
+      transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .skill-bar-fill.animated { width: var(--w); }
+
+    /* GOALS */
+    .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .goal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .goal-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .goal-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,245,212,0.04), transparent); opacity: 0; transition: opacity 0.3s; }
+    .goal-card:hover::after { opacity: 1; }
+    .goal-num { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; color: rgba(0,245,212,0.15); margin-bottom: 0.5rem; }
+    .goal-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .goal-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+    footer .footer-accent { color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s, transform 0.7s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section, .page-hero { padding: 2rem 1.5rem; }
+      .bio-grid { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
 </head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
 
-<body class="bg-light">
-    <header class="bg-primary text-white py-4 rounded-bottom shadow">
-        <div class="container">
-            <h1 class="display-4">Over Mij</h1>
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="about.html">Over mij</a></li>
-                            <li class="nav-item"><a class="nav-link" href="projects.html">Projecten</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
+<nav>
+  <a href="index.html" class="nav-logo">arda<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">Over mij</a></li>
+    <li><a href="projects.html">Projecten</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
 
-    <main class="container my-5">
-        <section class="about bg-white p-5 rounded shadow mb-4">
-            <h2 class="mb-4">Wie ben ik?</h2>
-            <p>Mijn naam is Arda Simsek, ik ben 16 jaar oud en volg de opleiding Software Developer. Ik ben altijd
-                geïnteresseerd geweest in technologie en de mogelijkheden die het biedt. Mijn passie voor programmeren
-                begon op jonge leeftijd en sindsdien heb ik veel geleerd over webontwikkeling, softwareontwikkeling en
-                gameontwikkeling.</p>
-            <p>Ik heb verschillende projecten uitgevoerd waarbij ik gebruik heb gemaakt van technologieën zoals HTML,
-                CSS, JavaScript en frameworks zoals React en Node.js. Mijn doel is om software te maken die het
-                dagelijks leven van mensen makkelijker maakt en tegelijkertijd mijn technische vaardigheden uit te
-                breiden.</p>
-        </section>
+<main>
+  <div class="page-hero">
+    <div class="page-eyebrow">Wie ben ik?</div>
+    <h1>Over <em>Arda Simsek</em></h1>
+  </div>
 
-        <section class="skills bg-white p-5 rounded shadow mb-4">
-            <h2 class="mb-4">Mijn Vaardigheden</h2>
-            <p>Gedurende mijn opleiding en persoonlijke projecten heb ik ervaring opgedaan met verschillende
-                technologieën:</p>
-            <ul class="list-group">
-                <li class="list-group-item">HTML, CSS, JavaScript</li>
-                <li class="list-group-item">Databasebeheer met MySQL</li>
-            </ul>
-        </section>
+  <section>
+    <div class="bio-grid">
+      <div class="bio-card reveal">
+        <div class="bio-avatar">👨‍💻</div>
+        <h2>Arda Simsek</h2>
+        <div class="bio-subtitle">Software Developer Student</div>
+        <div class="bio-detail"><span>Leeftijd</span><span>17 jaar</span></div>
+        <div class="bio-detail"><span>Opleiding</span><span>Software Developer, Hogeschool</span></div>
+        <div class="bio-detail"><span>Focus</span><span>Web + Game Development</span></div>
+        <div class="bio-detail"><span>Status</span><span style="color: var(--accent);">● Beschikbaar</span></div>
+      </div>
 
-        <section class="future-goals bg-white p-5 rounded shadow">
-            <h2 class="mb-4">Mijn Toekomstige Doelen</h2>
-            <p>In de toekomst wil ik me verder ontwikkelen in webapplicatieontwikkeling en cloudtechnologieën. Mijn doel
-                is om meer te leren over backend development en DevOps, en uiteindelijk te werken aan grotere,
-                schaalbare projecten voor bedrijven en organisaties.</p>
-        </section>
-    </main>
+      <div class="bio-text reveal">
+        <p>Mijn naam is <strong>Arda Simsek</strong>. Ik ben altijd gefascineerd geweest door de wereld van technologie en de mogelijkheden die het biedt. Mijn passie voor programmeren begon op jonge leeftijd, en sindsdien ben ik nooit gestopt met leren.</p>
+        <p>Ik volg momenteel de opleiding <strong>Software Developer</strong> en heb al diverse projecten gerealiseerd waarbij ik gebruik heb gemaakt van technologieën zoals HTML, CSS, JavaScript, PHP en MySQL. Van interactieve games tot volledige web-applicaties — ik houd van het bouwen van dingen die écht werken.</p>
+        <p>Mijn doel is om software te maken die het dagelijks leven van mensen makkelijker maakt en tegelijkertijd mijn technische vaardigheden continu uit te breiden.</p>
+      </div>
+    </div>
+  </section>
 
-    <footer class="bg-primary text-white py-3 mt-5 rounded-top shadow">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Arda Simsek</p>
-        </div>
-    </footer>
+  <section>
+    <div class="section-label reveal">Technisch</div>
+    <h2 class="section-title reveal">Mijn Vaardigheden</h2>
+    <div class="skill-bars reveal" id="skillBars">
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>HTML & CSS</span><span>85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:85%"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>JavaScript</span><span>70%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:70%"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>PHP</span><span>60%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:60%"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>MySQL</span><span>55%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:55%"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-header"><span>Git & GitHub</span><span>65%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--w:65%"></div></div>
+      </div>
+    </div>
+  </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script></body>
+  <section>
+    <div class="section-label reveal">Toekomst</div>
+    <h2 class="section-title reveal">Mijn Doelen</h2>
+    <div class="goals-grid">
+      <div class="goal-card reveal">
+        <div class="goal-num">01</div>
+        <h3>Backend Development</h3>
+        <p>Me verder verdiepen in server-side technologieën en schaalbare API's bouwen.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-num">02</div>
+        <h3>Cloud & DevOps</h3>
+        <p>Leren werken met cloud platforms en deployment pipelines opzetten.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-num">03</div>
+        <h3>Game Development</h3>
+        <p>Een volledig spel bouwen van concept tot release, met focus op spelerbeleving.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-num">04</div>
+        <h3>Open Source</h3>
+        <p>Bijdragen aan open source projecten en iets teruggeven aan de community.</p>
+      </div>
+    </div>
+  </section>
+</main>
 
+<footer>
+  <p>© 2025 Arda Simsek</p>
+  <span class="footer-accent">&lt;/built with passion&gt;</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+  function animRing() { rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+  animRing();
+
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth, H = canvas.height = window.innerHeight;
+  const pts = Array.from({length:80}, () => ({ x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, r:Math.random()*1.2+.3, a:Math.random()*.4+.1, c:Math.random()>.7?'#00f5d4':Math.random()>.5?'#7c3aed':'#ffffff' }));
+  function animBg() {
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p => { p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=p.c; ctx.globalAlpha=p.a; ctx.fill(); });
+    ctx.globalAlpha=1; requestAnimationFrame(animBg);
+  }
+  animBg();
+
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => entries.forEach((e,i) => { if(e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i*80); } }), {threshold:0.1});
+  reveals.forEach(el => io.observe(el));
+
+  // Animate skill bars when visible
+  const skillSection = document.getElementById('skillBars');
+  const skillIo = new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting) {
+      document.querySelectorAll('.skill-bar-fill').forEach(b => b.classList.add('animated'));
+      skillIo.disconnect();
+    }
+  }, {threshold:0.3});
+  skillIo.observe(skillSection);
+</script>
+</body>
 </html>
